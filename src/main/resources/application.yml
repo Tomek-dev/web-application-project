@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/spring_jwt_auth
+    url: jdbc:postgresql://localhost:5432/web_applications
     username: postgres
     password: password
     hikari:

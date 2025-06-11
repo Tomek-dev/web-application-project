@@ -22,7 +22,7 @@ public class WorkplaceRole extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private UserRoleType roleType;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 

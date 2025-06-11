@@ -1,0 +1,25 @@
+.workplace-roles-container {
+  margin-top: 32px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 24px;
+  max-width: 900px;
+}
+h2 {
+  margin-bottom: 16px;
+}
+button {
+  margin-bottom: 16px;
+}
+mat-table {
+  width: 100%;
+  margin-top: 8px;
+}
+mat-select {
+  min-width: 120px;
+}
+
+tr {
+  width: 100%;
+}

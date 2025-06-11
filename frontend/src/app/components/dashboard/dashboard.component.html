@@ -1,0 +1,23 @@
+<div class="dashboard-container">
+  <h1>My Workplaces</h1>
+  <button mat-raised-button color="primary" (click)="openAddDialog()">Add Workplace</button>
+  <table mat-table [dataSource]="workplaces" *ngIf="!loading">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let w">{{ w.name }}</td>
+    </ng-container>
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <td mat-cell *matCellDef="let w">{{ w.description }}</td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let w">
+        <button mat-button color="accent" [routerLink]="['/workplace', w.id]">Szczegóły</button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="['name', 'description', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['name', 'description', 'actions']"></tr>
+  </table>
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+</div> 

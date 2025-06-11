@@ -1,0 +1,6 @@
+<div class="toast-container">
+  <div *ngFor="let msg of messages; let i = index" class="toast" [ngClass]="msg.type">
+    <span>{{ msg.text }}</span>
+    <button class="close-btn" (click)="closeToast(i)">&times;</button>
+  </div>
+</div> 

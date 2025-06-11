@@ -6,12 +6,12 @@ spring:
     hikari:
       maximum-pool-size: 2
       connection-timeout: 40000
-    jpa:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
       hibernate:
-        ddl-auto: create
-      properties:
-        hibernate:
-          dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQL8Dialect
 
 security:
   auth:

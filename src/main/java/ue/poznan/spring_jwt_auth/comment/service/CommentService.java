@@ -29,7 +29,7 @@ public class CommentService {
 
     private boolean canComment(User user) {
         // User must have at least one non-VIEWER role in any workplace
-        return user.getWorkplaceRoles().stream()
+        return user.getWorkplaces().stream().flatMap(workplace -> workplace.getRoles().stream())
                 .anyMatch(role -> role.getRoleType() != UserRoleType.VIEWER);
     }
 
@@ -85,4 +85,4 @@ public class CommentService {
     private CommentResponseDto toResponseDto(Comment comment) {
         return modelMapper.map(comment, CommentResponseDto.class);
     }
-} 
+}

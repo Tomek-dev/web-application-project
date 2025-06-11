@@ -1,14 +1,17 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/web_applications
-    username: postgres
-    password: password
+    url: jdbc:mysql://localhost:3306/moja_baza?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: uzytkownik
+    password: MojeHaslo
     hikari:
-      maximumPoolSize: 2
-      connectionTimeout: 40000
-  jpa:
-    hibernate:
-      ddl-auto: create
+      maximum-pool-size: 2
+      connection-timeout: 40000
+    jpa:
+      hibernate:
+        ddl-auto: create
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQL8Dialect
 
 security:
   auth:

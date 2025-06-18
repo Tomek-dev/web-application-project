@@ -21,7 +21,7 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Akcje</th>
       <td mat-cell *matCellDef="let r">
-        <button mat-icon-button color="warn" (click)="removeRole(r)">
+        <button mat-icon-button color="warn" (click)="removeRole(r)" matTooltip="Usuń użytkownika">
           <mat-icon>delete</mat-icon>
         </button>
       </td>

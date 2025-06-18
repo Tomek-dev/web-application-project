@@ -1,0 +1,99 @@
+<div class="project-board-container">
+  <div class="board-header">
+    <h1>{{ project?.name || 'Project Board' }}</h1>
+    <div class="board-actions">
+      <button mat-raised-button color="primary" (click)="openAddTaskDialog()">
+        <mat-icon>add</mat-icon>
+        Dodaj Task
+      </button>
+      <button mat-raised-button color="accent" (click)="openAddSprintDialog()">
+        <mat-icon>add</mat-icon>
+        Dodaj Sprint
+      </button>
+    </div>
+  </div>
+
+  <div class="board-content" *ngIf="!loading">
+    <!-- Unassigned Tasks Column -->
+    <div class="board-column">
+      <div class="column-header">
+        <h3>Nieprzypisane Taski</h3>
+        <span class="task-count">{{ getUnassignedTasks().length }}</span>
+      </div>
+      <div class="task-list">
+        <div class="task-card" *ngFor="let task of getUnassignedTasks()">
+          <div class="task-header">
+            <h4>{{ task.title }}</h4>
+            <div class="task-actions">
+              <button mat-icon-button color="primary" (click)="editTask(task)" matTooltip="Edytuj task">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteTask(task)" matTooltip="Usuń task">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+          <p class="task-description">{{ task.description }}</p>
+          <div class="task-footer">
+            <div class="task-info">
+              <span class="task-deadline">
+                <mat-icon>schedule</mat-icon>
+                {{ task.deadline | date:'dd/MM/yyyy' }}
+              </span>
+              <span class="task-assigned" *ngIf="task.assignedUser">
+                <mat-icon>person</mat-icon>
+                {{ task.assignedUser.username }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sprint Columns -->
+    <div class="board-column" *ngFor="let sprint of sprints">
+      <div class="column-header">
+        <h3>{{ sprint.name }}</h3>
+        <span class="task-count">{{ getTasksBySprint(sprint.id).length }}</span>
+      </div>
+      <div class="sprint-info">
+        <small>{{ sprint.startDate | date:'dd/MM' }} - {{ sprint.endDate | date:'dd/MM' }}</small>
+      </div>
+      <div class="task-list">
+        <div class="task-card" *ngFor="let task of getTasksBySprint(sprint.id)">
+          <div class="task-header">
+            <h4>{{ task.title }}</h4>
+            <div class="task-actions">
+              <button mat-icon-button color="primary" (click)="editTask(task)" matTooltip="Edytuj task">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteTask(task)" matTooltip="Usuń task">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+          <p class="task-description">{{ task.description }}</p>
+          <div class="task-footer">
+            <div class="task-info">
+              <span class="task-deadline">
+                <mat-icon>schedule</mat-icon>
+                {{ task.deadline | date:'dd/MM/yyyy' }}
+              </span>
+              <span class="task-assigned" *ngIf="task.assignedUser">
+                <mat-icon>person</mat-icon>
+                {{ task.assignedUser.username }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+  <div *ngIf="!loading && tasks.length === 0" class="no-tasks">
+    <p>Brak tasków w tym projekcie.</p>
+    <button mat-raised-button color="primary" (click)="openAddTaskDialog()">Dodaj pierwszy task</button>
+  </div>
+</div> 

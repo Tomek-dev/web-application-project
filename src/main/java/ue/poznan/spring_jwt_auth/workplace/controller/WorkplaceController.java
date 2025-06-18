@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ue.poznan.spring_jwt_auth.workplace.dto.WorkplaceRequestDto;
 import ue.poznan.spring_jwt_auth.workplace.dto.WorkplaceResponseDto;
 import ue.poznan.spring_jwt_auth.workplace.service.WorkplaceService;
+import ue.poznan.spring_jwt_auth.user.dto.UserDto;
 
 import java.util.List;
 import java.util.UUID;
@@ -33,5 +34,10 @@ public class WorkplaceController {
     @GetMapping("my")
     public List<WorkplaceResponseDto> getMyWorkplaces() {
         return workplaceService.getMyWorkplaces();
+    }
+
+    @GetMapping("{workplaceId}/users")
+    public List<UserDto> getUsersByWorkplace(@PathVariable UUID workplaceId) {
+        return workplaceService.getUsersByWorkplace(workplaceId);
     }
 } 

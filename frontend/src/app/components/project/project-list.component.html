@@ -1,0 +1,50 @@
+<div class="project-list-container">
+  <h2>Projekty</h2>
+  <button mat-raised-button color="primary" (click)="openAddDialog()">Dodaj projekt</button>
+  
+  <mat-table [dataSource]="projects" *ngIf="!loading && projects.length > 0">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Nazwa projektu</th>
+      <td mat-cell *matCellDef="let p">{{ p.name }}</td>
+    </ng-container>
+    
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Opis</th>
+      <td mat-cell *matCellDef="let p">{{ p.description }}</td>
+    </ng-container>
+    
+    <ng-container matColumnDef="startDate">
+      <th mat-header-cell *matHeaderCellDef>Data rozpoczęcia</th>
+      <td mat-cell *matCellDef="let p">{{ p.startDate | date:'dd/MM/yyyy' }}</td>
+    </ng-container>
+    
+    <ng-container matColumnDef="endDate">
+      <th mat-header-cell *matHeaderCellDef>Data zakończenia</th>
+      <td mat-cell *matCellDef="let p">{{ p.endDate | date:'dd/MM/yyyy' }}</td>
+    </ng-container>
+    
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Akcje</th>
+      <td mat-cell *matCellDef="let p">
+        <button mat-icon-button color="accent" (click)="openBoard(p)" matTooltip="Otwórz board">
+          <mat-icon>dashboard</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" (click)="openEditDialog(p)" matTooltip="Edytuj projekt">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteProject(p)" matTooltip="Usuń projekt">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="['name', 'description', 'startDate', 'endDate', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['name', 'description', 'startDate', 'endDate', 'actions'];"></tr>
+  </mat-table>
+  
+  <div *ngIf="!loading && projects.length === 0" class="no-projects">
+    <p>Brak projektów w tym workplace.</p>
+  </div>
+  
+  <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+</div> 

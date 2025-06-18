@@ -183,6 +183,10 @@ public class TaskService {
     }
 
     private TaskResponseDto toResponseDto(Task task) {
-        return modelMapper.map(task, TaskResponseDto.class);
+        TaskResponseDto dto = modelMapper.map(task, TaskResponseDto.class);
+        if (task.getAssignedUser() != null) {
+            dto.setAssignedUser(modelMapper.map(task.getAssignedUser(), ue.poznan.spring_jwt_auth.user.dto.UserDto.class));
+        }
+        return dto;
     }
 } 

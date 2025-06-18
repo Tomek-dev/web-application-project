@@ -102,4 +102,20 @@ export class AddWorkplaceRoleDialogComponent {
       this.dialogRef.close(this.form.value);
     }
   }
+}
+
+@Component({
+  selector: 'app-projects-dialog',
+  template: `
+    <h2 mat-dialog-title>Zarządzanie projektami</h2>
+    <mat-dialog-content>
+      <app-project-list [workplaceId]="data.workplaceId"></app-project-list>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Zamknij</button>
+    </mat-dialog-actions>
+  `
+})
+export class ProjectsDialogComponent {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { workplaceId: string }) {}
 } 

@@ -3,6 +3,7 @@ import { WorkplaceService, Workplace } from '../../services/workplace.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from '../toast/toast.service';
+import { ProjectsDialogComponent } from '../workplace/workplace-roles.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -44,6 +45,14 @@ export class DashboardComponent implements OnInit {
           error: () => { this.toast.show('Failed to add workplace', 'error'); }
         });
       }
+    });
+  }
+
+  openProjects(workplace: Workplace) {
+    const dialogRef = this.dialog.open(ProjectsDialogComponent, {
+      width: '80%',
+      height: '80%',
+      data: { workplaceId: workplace.id }
     });
   }
 }

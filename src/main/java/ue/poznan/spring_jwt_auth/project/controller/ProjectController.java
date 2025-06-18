@@ -20,6 +20,11 @@ public class ProjectController {
         return projectService.createProject(workplaceId, dto);
     }
 
+    @GetMapping("{id}")
+    public ProjectResponseDto getProjectById(@PathVariable UUID id) {
+        return projectService.getProjectById(id);
+    }
+
     @PutMapping("{id}")
     public ProjectResponseDto updateProject(@PathVariable UUID id, @RequestBody ProjectRequestDto dto) {
         return projectService.updateProject(id, dto);

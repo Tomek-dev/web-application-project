@@ -104,6 +104,13 @@ public class ProjectService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public ProjectResponseDto getProjectById(UUID projectId) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new IllegalArgumentException("Project not found"));
+        return toResponseDto(project);
+    }
+
     private ProjectResponseDto toResponseDto(Project project) {
         return modelMapper.map(project, ProjectResponseDto.class);
     }

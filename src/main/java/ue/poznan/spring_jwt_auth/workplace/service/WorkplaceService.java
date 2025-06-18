@@ -6,6 +6,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ue.poznan.spring_jwt_auth.user.domain.User;
+import ue.poznan.spring_jwt_auth.user.dto.UserDto;
 import ue.poznan.spring_jwt_auth.user.service.UserService;
 import ue.poznan.spring_jwt_auth.workplace.domain.*;
 import ue.poznan.spring_jwt_auth.workplace.dto.WorkplaceRequestDto;
@@ -81,7 +82,21 @@ public class WorkplaceService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<UserDto> getUsersByWorkplace(UUID workplaceId) {
+        Workplace workplace = workplaceRepository.findById(workplaceId)
+                .orElseThrow(() -> new IllegalArgumentException("Workplace not found"));
+        return workplace.getRoles().stream()
+                .map(WorkplaceRole::getUser)
+                .map(this::toUserDto)
+                .collect(Collectors.toList());
+    }
+
     private WorkplaceResponseDto toResponseDto(Workplace workplace) {
         return modelMapper.map(workplace, WorkplaceResponseDto.class);
+    }
+
+    private UserDto toUserDto(User user) {
+        return modelMapper.map(user, UserDto.class);
     }
 } 
